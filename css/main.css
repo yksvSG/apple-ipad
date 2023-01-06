@@ -33,6 +33,25 @@ header ul.menu li a {
   opacity: 0.8;
   text-decoration: none;
 }
+/* 대체텍스트 */
+header ul.menu li.apple-logo a,
+header ul.menu li.search-starter a,
+header ul.menu li.basket-starter a {
+  width: 14px;
+  text-indent: -9999px;
+  background-position: center 13px;
+  background-repeat: no-repeat;
+}
+header ul.menu li.apple-logo a {
+  background-image: url("../images/header_apple.svg");
+}
+header ul.menu li.search-starter a {
+  background-image: url("../images/header_search.svg");
+}
+header ul.menu li.basket-starter a {
+  background-image: url("../images/header_bag.svg");
+}
+
 header ul.menu li a:hover {
   opacity: 1;
 }

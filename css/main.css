@@ -63,7 +63,9 @@ header ul.menu > li > a:hover {
 /* Header / Menu / Basket */
 /* 드롭다운 적용을 위해  header .basket .show 에만 display: block으로 설정한다.*/
 header .basket {
-  display: none;
+  visibility: hidden;
+  transition: 0.4s;
+  opacity: 0;
   width: 290px;
   padding: 10px 20px;
   border: 1px solid #d2d2d2;
@@ -75,7 +77,8 @@ header .basket {
   right: -6px;
 }
 header .basket.show {
-  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 header .basket .arrow {

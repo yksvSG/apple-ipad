@@ -1,3 +1,4 @@
+// ---- baskect ----
 const basketStarterEl = document.querySelector("header .basket-starter");
 const basketEl = basketStarterEl.querySelector(".basket");
 
@@ -21,3 +22,48 @@ const handleBasket = (event) => {
 basketStarterEl.addEventListener("click", handleBasket);
 basketEl.addEventListener("click", (event) => event.stopPropagation());
 window.addEventListener("click", hideBasket);
+
+// ----  Search ----
+const headerEl = document.querySelector("header");
+const headeMenuEls = [...headerEl.querySelectorAll("ul.menu > li")];
+const searchWrapEl = headerEl.querySelector(".search-wrap");
+const searchStarterEl = headerEl.querySelector(".search-starter");
+const searchCloserEl = searchWrapEl.querySelector(".search-closer");
+const searchShadowEl = searchWrapEl.querySelector(".shadow");
+const searchDelayEls = [...searchWrapEl.querySelectorAll("li")];
+const searchInputEl = searchWrapEl.querySelector("input");
+
+const showSearch = () => {
+  headerEl.classList.add("searching");
+  document.documentElement.classList.add("fixed");
+  // console.log("showSearch headeMenuEls 1 ", headeMenuEls);
+  headeMenuEls.reverse().forEach((el, index) => {
+    el.style.transitionDelay = (index * 0.4) / headeMenuEls.length + "s";
+  });
+  // console.log("showSearch headeMenuEls 2 ", headeMenuEls);
+  searchDelayEls.forEach((el, index) => {
+    el.style.transitionDelay = (index * 0.4) / searchDelayEls.length + "s";
+  });
+  setTimeout(() => {
+    searchInputEl.focus();
+  }, 600);
+};
+
+const hideSearch = () => {
+  headerEl.classList.remove("searching");
+  document.documentElement.classList.remove("fixed");
+  // console.log("hideSearch headeMenuEls 1", headeMenuEls);
+  headeMenuEls.reverse().forEach((el, index) => {
+    el.style.transitionDelay = (index * 0.4) / headeMenuEls.length + "s";
+  });
+  // console.log("headeMenuEls 2", headeMenuEls);
+  searchDelayEls.reverse().forEach((el, index) => {
+    el.style.transitionDelay = (index * 0.4) / searchDelayEls.length + "s";
+  });
+  searchDelayEls.reverse();
+  searchInputEl.value = "";
+};
+
+searchStarterEl.addEventListener("click", showSearch);
+searchCloserEl.addEventListener("click", hideSearch);
+searchShadowEl.addEventListener("click", hideSearch);

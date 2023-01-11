@@ -16,7 +16,24 @@ a {
   text-decoration: none;
   color: #1d1d1d;
 }
+img {
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
 
+p {
+  line-height: 1.6;
+}
+
+/* Inner */
+.inner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+}
+/* Btn */
 .btn {
   display: flex;
   justify-content: center;
@@ -39,15 +56,62 @@ a {
 .btn:focus {
   box-shadow: 0 0 0 4px #81b9f1;
 }
+
+/* Background image text */
+.bgtext {
+  display: block;
+  /* 대체텍스트화 : text-indent */
+  text-indent: -9999px;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* 요소의 더 짧은 너비에 크기를 맞춤  */
+  background-size: contain;
+}
+
+/* Links */
+/* links : 두 개 이상의 a.link 묶음 클래스  */
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+a.link {
+  color: #0071e3;
+  font-size: 19px;
+  line-height: 1.3;
+}
+a.link:hover {
+  text-decoration: underline;
+}
+a.link::after {
+  content: " >";
+}
+
+/* Figures */
+.figures {
+  position: relative;
+}
+.figures figure,
+.figures figcaption {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+.figures figcaption * {
+  top: 0;
+  left: 0;
+  position: absolute;
+}
 /* Header */
 header {
   background-color: #3a3a3a;
+  /* z-index는 position 값이 static일때 적용할 수 없다. */
+  position: relative;
+  z-index: 9;
 }
 
 header .inner {
   max-width: 1020px;
-  margin: 0 auto;
-  position: relative;
 }
 
 header ul.menu {
@@ -298,7 +362,6 @@ nav {
 nav .inner {
   max-width: 1000px;
   height: 52px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
 }
@@ -329,4 +392,71 @@ nav .menu li.active a {
 }
 nav .menu li.active:hover a {
   color: #1d1d1d;
+}
+
+/* Hero */
+.hero {
+  background-color: #f5f5f5;
+}
+.hero .inner {
+  padding-bottom: 110px;
+}
+.hero h1 {
+  width: 221px;
+  height: 91px;
+  background-image: url("../images/hero_ipad_text.png");
+  position: absolute;
+  transform: translate(624px, 235px);
+  z-index: 1;
+}
+.hero .figures {
+  height: 808px;
+}
+.hero figure {
+  transform: translate(74px, -64px);
+}
+/* text-indent는 공통 설정인 .bgtext로 대체함  */
+.hero figure figcaption .caption-camera {
+  /* 이미지 크기만큼 width, height 적용 */
+  width: 120px;
+  height: 84px;
+  background-image: url("../images/hero_ipad_caption_camera.png");
+  transform: translate(43px, 580px);
+}
+.hero figure figcaption .caption-chip {
+  width: 95px;
+  height: 43px;
+  background-image: url("../images/hero_ipad_caption_chip.png");
+  transform: translate(589px, 510px);
+}
+.hero figure figcaption .caption-storage {
+  width: 80px;
+  height: 43px;
+  background-image: url("../images/hero_ipad_caption_storage.png");
+  transform: translate(627px, 631px);
+}
+.hero h2 {
+  width: 738px;
+  height: 145px;
+  margin: 0 auto;
+  background-image: url("../images/hero_headline.png");
+}
+.hero p.pricing {
+  margin-top: 40px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+.hero p.description {
+  /* 
+     inner의 범위 내에서 p 태그의 너비를 inner 너비의 88% 제한함으로
+     지정함으로써 자연스러운 줄바꿈 효과를 얻을 수 있다.
+  */
+  width: 88%;
+  margin: 18px auto 0;
+  font-size: 19px;
+  text-align: center;
+}
+.hero .links {
+  margin-top: 30px;
 }

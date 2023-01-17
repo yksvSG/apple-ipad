@@ -67,3 +67,43 @@ const hideSearch = () => {
 searchStarterEl.addEventListener("click", showSearch);
 searchCloserEl.addEventListener("click", hideSearch);
 searchShadowEl.addEventListener("click", hideSearch);
+
+// 요소의 가시성 관찰
+// 1. 관찰하는 개별 요소가 화면에 교차될 때, 해당 요소에 .show 를 추가한다.
+// 2. 이때, 조건문으로 요소가 화면에 교차되지 않을 때, 함수를 종료한다.(return)
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    // console.log(entry.target);
+    if (!entry.isIntersecting) {
+      // entry.target.classList.remove("show");
+      return;
+    } else {
+      entry.target.classList.add("show");
+    }
+  });
+});
+
+// 관찰할 요소 배열
+const infoEls = document.querySelectorAll(".info");
+infoEls.forEach((el) => {
+  // 관찰 등록
+  io.observe(el);
+});
+
+// ---------------------------
+
+// 비디오 재생
+const video = document.querySelector(".stage video");
+const playBtn = document.querySelector(".stage .controller--play");
+const pauseBtn = document.querySelector(".stage .controller--pause");
+
+playBtn.addEventListener("click", () => {
+  video.play();
+  playBtn.classList.add("hide");
+  pauseBtn.classList.remove("hide");
+});
+pauseBtn.addEventListener("click", () => {
+  video.pause();
+  pauseBtn.classList.add("hide");
+  playBtn.classList.remove("hide");
+});

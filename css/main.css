@@ -22,7 +22,6 @@ html.fixed {
 }
 
 body {
-  height: 100000px;
   font-size: 16px;
   line-height: 1;
   font-family: "Roboto", "Noto Sans KR", sans-serif;
@@ -43,6 +42,11 @@ p {
   line-height: 1.6;
 }
 
+sup {
+  margin: 6px;
+  font-size: 0.7em;
+  vertical-align: top;
+}
 /* Inner */
 .inner {
   max-width: 980px;
@@ -1171,7 +1175,7 @@ nav .menu li.active:hover a {
 footer {
   background-color: var(--color-section);
 }
-
+/* Footer / BuyInfo */
 footer .buy-info {
   padding: 76px 0;
   display: flex;
@@ -1196,6 +1200,25 @@ footer .buy-info p {
 footer .buy-info a.link {
   font-size: 14px;
 }
+
+/* Footer / Warning */
+footer .warning {
+  padding: 18px 0 10px;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+footer .warning ol {
+  /* Reset.css 적용했으므로 ol El > li El 앞에 10진수로 숫자를 부여해줌*/
+  list-style: decimal;
+  padding: 16px;
+}
+footer .warning li {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  font-size: 11px;
+  color: var(--color-font-darkgray);
+}
+
 @keyframes sprite-icon {
   /* 1~10 */
   0.00% {

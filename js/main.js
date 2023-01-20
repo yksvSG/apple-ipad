@@ -1,4 +1,5 @@
 import ipads from "../data/ipads.js";
+import navigations from "../data/navigations.js";
 // ---- baskect ----
 const basketStarterEl = document.querySelector("header .basket-starter");
 const basketEl = basketStarterEl.querySelector(".basket");
@@ -137,3 +138,53 @@ ipads.forEach((ipad) => {
 
   itemsEl.append(itemEl);
 });
+
+// Footer navigations
+// 1. footer navigations El 내의 모든 map El 를 선택하여 배열로 만든다.
+// 2. navigations.js를 반복조회한다.
+//   1) div.map 을 만든다.
+//   2) div.map El에 규격화된 html을 추가한다.
+//    2.1) <h3>
+//           <span class="text">${nav.title}</span>
+//           <span class="icon">+</span>
+//         </h3>
+//         <ul>
+// ${mapList}
+//         </ul>
+// 3. mapList 변수를 만들어, navigations.js의 maps를 요소 정보를 담은 html을 등록한다.
+// let mapList = ""
+// navigations.maps.forEach((map) => {
+//   mapList += `
+//   <li>
+//     <a href="${map.url}">${map.name}</a>
+//   <li/>
+//   `
+// })
+
+const navigationsEl = document.querySelector("footer .navigations");
+navigations.forEach((nav) => {
+  const mapEl = document.createElement("div");
+  mapEl.classList.add("map");
+
+  let mapList = "";
+  nav.maps.forEach((map) => {
+    mapList += `
+      <li>
+        <a href="${map.url}">${map.name}</a>
+      </li>
+    `;
+  });
+  mapEl.innerHTML = /* html */ `
+    <h3>
+      <span class="text">${nav.title}</span>
+      <span class="icon">+</span>
+    </h3>
+    <ul>
+      ${mapList}
+    </ul>
+  `;
+  navigationsEl.append(mapEl);
+});
+
+const thisYearEl = document.querySelector("span.this-year");
+thisYearEl.textContent = new Date().getFullYear();

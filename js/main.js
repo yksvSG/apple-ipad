@@ -37,7 +37,7 @@ const searchInputEl = searchWrapEl.querySelector("input");
 
 const showSearch = () => {
   headerEl.classList.add("searching");
-  document.documentElement.classList.add("fixed");
+  stopScroll();
   // console.log("showSearch headeMenuEls 1 ", headeMenuEls);
   headeMenuEls.reverse().forEach((el, index) => {
     el.style.transitionDelay = (index * 0.4) / headeMenuEls.length + "s";
@@ -53,7 +53,7 @@ const showSearch = () => {
 
 const hideSearch = () => {
   headerEl.classList.remove("searching");
-  document.documentElement.classList.remove("fixed");
+  playScroll();
   // console.log("hideSearch headeMenuEls 1", headeMenuEls);
   headeMenuEls.reverse().forEach((el, index) => {
     el.style.transitionDelay = (index * 0.4) / headeMenuEls.length + "s";
@@ -66,9 +66,66 @@ const hideSearch = () => {
   searchInputEl.value = "";
 };
 
+const playScroll = () => {
+  document.documentElement.classList.remove("fixed");
+};
+const stopScroll = () => {
+  document.documentElement.classList.add("fixed");
+};
+
 searchStarterEl.addEventListener("click", showSearch);
-searchCloserEl.addEventListener("click", hideSearch);
+// mobile 모드에서 이벤트 버블링 발생!
+searchCloserEl.addEventListener("click", (event) => {
+  event.stopPropagation(); // 이벤트 버블링 중단
+  hideSearch();
+});
 searchShadowEl.addEventListener("click", hideSearch);
+
+// 헤더 메뉴 토글
+const menuStarterEl = document.querySelector("header .menu-starter");
+menuStarterEl.addEventListener("click", () => {
+  // headerEl 에 .menuing 있으면, .menuing제거
+  if (headerEl.classList.contains("menuing")) {
+    headerEl.classList.remove("menuing");
+    searchInputEl.value = "";
+    playScroll();
+  } else {
+    headerEl.classList.add("menuing");
+    stopScroll();
+  }
+});
+
+// 모바일 헤더 검색
+// 1. 모바일 메뉴바에서(header.menuing)
+//     검색바 클릭시, header El 속성리스트에 'searching--mobile'을 추가하여,
+//     search-canceler El 와 autocompletes El 가 검색바 하단에 노출되도록 한다.
+// 2. 검색바 좌측, search-canceler El를 클릭시,
+//     search-canceler El 와 autocompletes El 가 비활성화 되면서,
+//     clone-menu El 가 노출된다.
+const searchTextFiledEl = document.querySelector("header .textfield");
+const searchCancelEl = document.querySelector("header .search-canceler");
+
+searchTextFiledEl.addEventListener("click", () => {
+  searchInputEl.focus();
+  headerEl.classList.add("searching--mobile");
+});
+searchCancelEl.addEventListener("click", () => {
+  headerEl.classList.remove("searching--mobile");
+});
+
+//? 브라우저 resize 이벤트 최적화
+//* window.innerWidth; // 브라우저 화면의 너비
+//* window.innerHeight; // 브라우저 화면의 높이
+//* window.outerWidth; // 브라우저 전체의 너비
+//* window.outerHeight; // 브라우저 전체의 높이
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth <= 740) {
+    headerEl.classList.remove("searching");
+  } else {
+    headerEl.classList.remove("searching--mobile");
+  }
+});
 
 // 요소의 가시성 관찰
 // 1. 관찰하는 개별 요소가 화면에 교차될 때, 해당 요소에 .show 를 추가한다.
